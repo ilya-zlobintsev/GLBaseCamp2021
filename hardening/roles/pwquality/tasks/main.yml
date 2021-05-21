@@ -1,0 +1,11 @@
+- name: Make sure pwquality is installed
+  ansible.builtin.package:
+    name: libpam-pwquality
+    state: present 
+
+     # The "username not allowed in password" filter is enabled by default in debian, this just makes sure that the default policy hasn't been disabled
+- name: Make sure that usercheck is not disabled in pwquality
+  ansible.builtin.lineinfile:
+    path: /etc/security/pwquality.conf
+    state: absent
+    regexp: 'usercheck\s*=\s*0'
