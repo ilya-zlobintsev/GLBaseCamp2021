@@ -1,0 +1,21 @@
+ - name: Enable TCP wrappers
+   hosts: nodes
+   become: true
+   tasks:
+     - name: Make sure the wrapper is installed
+       ansible.builtin.package:
+         name: libwrap0
+         state: present
+
+     - name: Allow specific hosts to connect
+       ansible.builtin.lineinfile:
+         path: /etc/hosts.allow
+         state: present
+         line: "ALL: 127.0.0.1/0, 192.168.122.1/32"
+
+     - name: Disallow everyone else
+       ansible.builtin.lineinfile:
+         path: /etc/hosts.deny
+         state: present
+         line: "ALL: ALL"
+
