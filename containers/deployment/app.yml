@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-app
+spec:
+  containers:
+  - name: simple-app
+    image: ghcr.io/ilyazzz/simple-app:0.1
+    ports:
+    - containerPort: 8000
+
